@@ -14,16 +14,20 @@ public class GuessNnumberController {
     @Autowired
     GuessNumberService service;
 
+
     @GetMapping("/welcome")
-    public String doGetWelcome(Model model) {
-        model.addAttribute("hello"," ");
+    public String resetGame(Model model) {
+        service.resetGame();
+        model.addAttribute("welcome"," ");
         return "resultpage";
     }
 
     @PostMapping("/guess")
     public String guessN(@RequestParam(name = "guessnumber") int guess, Model m) {
-        String result = service.guessNumber(guess);
-        m.addAttribute("answer", result);
+        String result =  service.guessNumber(guess);
+        m.addAttribute("answer",result);
         return "resultpage";
     }
+
+
 }

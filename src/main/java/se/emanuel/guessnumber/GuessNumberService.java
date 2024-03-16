@@ -1,35 +1,50 @@
 package se.emanuel.guessnumber;
 
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.util.InputMismatchException;
 import java.util.Random;
 
 @Service
 @SessionScope
 public class GuessNumberService {
-    private int randomNumber;
-    private boolean active;
 
-    public int generateNumberIfNeeded() {
+    private int randomNumber;
+    private boolean active = true;
+    private int count = 0;
+    private final Random random = new Random();
+
+    public int generateNumber() {
         if (randomNumber == 0) {
-            Random random = new Random();
             randomNumber = random.nextInt(100) + 1;
         }
         return randomNumber;
     }
 
-    public String guessNumber(int guess) {
-        int number = generateNumberIfNeeded();
+    public void resetGame() {
+        randomNumber = 0;
+        count = 0;
+        generateNumber();
+    }
 
-        if (guess == number) {
-            active = false;
-            return "Correct, bra gissat!";
-        } else if (guess > number) {
-            return "too big";
-        } else {
-            return "too small";
-        }
+    public String guessNumber(int guess) {
+            try {
+                int number = generateNumber();
+                if (guess == number) {
+                    count++;
+                    return "Correct, you got it right!!. Amount of tries:" + count;
+                }
+                else if (guess > number) {
+                    count++;
+                    return "Lower";
+                }
+                else {
+                    count++;
+                    return "Higher";
+                }
+            } catch (InputMismatchException e) {
+                 throw new InputMismatchException("You must input numbers, not letters or other types!!");
+            }
     }
 }

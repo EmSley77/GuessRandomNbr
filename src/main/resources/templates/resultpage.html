@@ -3,82 +3,18 @@
 <head>
     <meta charset="UTF-8" >
     <title>Guess the number</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 300px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
-        input[type="text"] {
-            padding: 10px;
-            width: 100%;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-            box-sizing: border-box;
-        }
-
-        input[type="text"]:focus {
-            outline: none;
-            border-color: #007bff;
-        }
-
-        button {
-            padding: 12px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        p {
-            color: #666;
-            margin-top: 20px;
-            font-size: 14px;
-        }
-    </style>
-
 </head>
 <body>
 <h1>Guess the random number</h1>
 
 <form method="post" action="/guess">
-  <input type="text" name="guessnumber" placeholder="Number">
+  <input type="number" name="guessnumber" placeholder="Number" required="required">
   <button type="submit" >Svara</button>
 </form>
-<p>svaret:<span th:text="${answer}" aria-placeholder="answer"></span></p>
+<p>svaret:<span th:text="${answer}" aria-placeholder="answer"></span></p> <br>
 
-
+<form action="/welcome" method="get">
+    <button type="submit">Reset game</button>
+</form>
 </body>
 </html>
